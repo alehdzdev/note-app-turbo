@@ -37,7 +37,9 @@ export default function EditNotePage() {
   const [loading, setLoading] = useState(true);
 
   const stateRef = useRef({ title, body, category });
-  stateRef.current = { title, body, category };
+  useEffect(() => {
+    stateRef.current = { title, body, category };
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");

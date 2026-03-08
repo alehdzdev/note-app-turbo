@@ -35,7 +35,9 @@ export default function NewNotePage() {
   const [lastEdited, setLastEdited] = useState(new Date());
 
   const stateRef = useRef({ title, body, category });
-  stateRef.current = { title, body, category };
+  useEffect(() => {
+    stateRef.current = { title, body, category };
+  });
 
   useEffect(() => {
     return () => {

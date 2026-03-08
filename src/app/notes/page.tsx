@@ -54,10 +54,7 @@ export default function NotesPage() {
                   onClick={() => setActiveCategory(isActive ? null : cat)}
                   className={`flex items-center gap-2 bg-transparent border-none cursor-pointer p-0 w-full ${isActive ? "font-bold" : "font-normal"}`}
                 >
-                  <span
-                    className="w-[10px] h-[10px] rounded-full shrink-0"
-                    style={{ background: CATEGORY_DOTS[cat] }}
-                  />
+                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: CATEGORY_DOTS[cat] }} />
                   <span className="text-[13px] text-[#1a1a1a] flex-1 text-left">{cat}</span>
                   {count > 0 && <span className="text-xs text-[#7a5c24]">{count}</span>}
                 </button>
@@ -98,7 +95,13 @@ export default function NotesPage() {
           </div>
         ) : displayed.length === 0 ? (
           <div className="flex flex-col items-center justify-center mt-20 md:mt-40 gap-6 text-center px-4">
-            <Image src={dashboardCoffee} alt="Waiting for notes" width={297} height={296} className="object-contain w-[180px] md:w-[297px]" />
+            <Image
+              src={dashboardCoffee}
+              alt="Waiting for notes"
+              width={297}
+              height={296}
+              className="object-contain w-[180px] md:w-[297px]"
+            />
             <p className="font-normal text-xl md:text-2xl leading-none text-[#957139] m-0">
               I&apos;m just here waiting for your charming notes...
             </p>

@@ -20,9 +20,7 @@ function formatLastEdited(date: Date): string {
     day: "numeric",
     year: "numeric",
   });
-  const timePart = date
-    .toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true })
-    .toLowerCase();
+  const timePart = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }).toLowerCase();
   return `${datePart} at ${timePart}`;
 }
 
@@ -92,12 +90,9 @@ export default function EditNotePage() {
               e.stopPropagation();
               setDropdownOpen(!dropdownOpen);
             }}
-            className="flex items-center gap-2 bg-[#f5e8d0] border border-[#957139] rounded-lg px-4 py-2 cursor-pointer min-w-[160px]"
+            className="flex items-center gap-2 bg-[#f5e8d0] border border-[#957139] rounded-lg px-4 py-2 cursor-pointer min-w-40"
           >
-            <span
-              className="w-3 h-3 rounded-full shrink-0"
-              style={{ background: style.dot }}
-            />
+            <span className="w-3 h-3 rounded-full shrink-0" style={{ background: style.dot }} />
             <span className="text-sm text-[#1a1a1a] flex-1 text-left">{category}</span>
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
               <path d="M1 1L6 6L11 1" stroke="#957139" strokeWidth="1.5" strokeLinecap="round" />
@@ -118,10 +113,7 @@ export default function EditNotePage() {
                   }}
                   className="flex items-center gap-2 w-full px-4 py-2 hover:bg-[rgba(149,113,57,0.1)] cursor-pointer bg-transparent border-none text-left"
                 >
-                  <span
-                    className="w-3 h-3 rounded-full shrink-0"
-                    style={{ background: CATEGORY_STYLES[cat].dot }}
-                  />
+                  <span className="w-3 h-3 rounded-full shrink-0" style={{ background: CATEGORY_STYLES[cat].dot }} />
                   <span className="text-sm text-[#1a1a1a]">{cat}</span>
                 </button>
               ))}
@@ -130,10 +122,7 @@ export default function EditNotePage() {
         </div>
 
         {/* Close button */}
-        <button
-          onClick={() => router.push("/notes")}
-          className="bg-transparent border-none cursor-pointer p-0"
-        >
+        <button onClick={() => router.push("/notes")} className="bg-transparent border-none cursor-pointer p-0">
           <Image src={closeButton} alt="Close" width={32} height={32} />
         </button>
       </div>
@@ -146,9 +135,7 @@ export default function EditNotePage() {
         >
           {/* Last edited */}
           <div className="flex justify-end mb-8">
-            <span className="text-sm text-[#5a4020]">
-              Last Edited: {formatLastEdited(lastEdited)}
-            </span>
+            <span className="text-sm text-[#5a4020]">Last Edited: {formatLastEdited(lastEdited)}</span>
           </div>
 
           {/* Title */}

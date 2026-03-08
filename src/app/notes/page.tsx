@@ -42,7 +42,7 @@ export default function NotesPage() {
   return (
     <div className="min-h-screen bg-[#f5e8d0] flex flex-col md:flex-row font-sans">
       {/* Sidebar — desktop only */}
-      <aside className="hidden md:block w-[220px] shrink-0 pt-20 px-5 pb-7">
+      <aside className="hidden md:block w-55 shrink-0 pt-20 px-5 pb-7">
         <p className="font-bold text-[13px] text-[#1a1a1a] mb-4">All Categories</p>
         <ul className="list-none p-0 m-0 flex flex-col gap-3">
           {CATEGORIES.map((cat) => {
@@ -90,7 +90,7 @@ export default function NotesPage() {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-xl bg-[rgba(180,150,100,0.15)] h-[180px]" />
+              <div key={i} className="rounded-xl bg-[rgba(180,150,100,0.15)] h-45" />
             ))}
           </div>
         ) : displayed.length === 0 ? (
@@ -100,7 +100,7 @@ export default function NotesPage() {
               alt="Waiting for notes"
               width={297}
               height={296}
-              className="object-contain w-[180px] md:w-[297px]"
+              className="object-contain w-45 md:w-74.25"
             />
             <p className="font-normal text-xl md:text-2xl leading-none text-[#957139] m-0">
               I&apos;m just here waiting for your charming notes...

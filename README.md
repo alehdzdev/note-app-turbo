@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Note App — Frontend
+
+A note-taking app built as a job assessment. Consumes the Django REST API in `note-app-turbo-backend`.
+
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Runtime | React 19 |
+| Linting | ESLint 9 |
+
+## App Routes
+
+| Route | Description |
+|---|---|
+| `/` | Redirects to `/notes` if logged in, else `/login` |
+| `/login` | Login page |
+| `/signup` | Signup page |
+| `/notes` | Main dashboard (protected) |
+| `/notes/[id]` | Note editor (protected) |
+| `/notes/new` | Create new note (protected) |
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── page.tsx              # Root redirect
+│   ├── login/page.tsx
+│   ├── signup/page.tsx
+│   ├── notes/
+│   │   ├── page.tsx          # Notes dashboard
+│   │   ├── new/page.tsx      # Create note
+│   │   └── [id]/page.tsx     # Edit note
+│   └── api/auth/
+│       ├── login/route.ts    # Sets httpOnly JWT cookie
+│       └── logout/route.ts
+├── components/
+│   ├── LoginForm.tsx
+│   ├── SignupForm.tsx
+│   ├── NoteCard.tsx
+│   ├── NoteEditor.tsx
+│   └── NewNoteButton.tsx
+└── lib/
+    ├── api.ts                # All API calls (never fetch directly in components)
+    └── utils.ts              # cn() utility (clsx + tailwind-merge)
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js >= 20
+- The backend running at `http://localhost:8000` (see `note-app-turbo-backend`)
+
+### Setup
+
+```bash
+npm install
+```
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+### Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Lint
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+```
 
-## Learn More
+### Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Note Categories & Colors
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Category | Color |
+|---|---|
+| Personal | `#78ABA8` |
+| School | `#FCDC94` |
+| Random Thoughts | `#EF9C6680` |
 
-## Deploy on Vercel
+## Use of AI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Claude Code (Anthropic) was used throughout this project to assist with:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Scaffolding the file structure from the `CONTEXT.md` spec
+- Converting all inline styles to Tailwind CSS classes
+- Implementing responsive layouts (mobile category tabs, responsive grid)
+- Writing auth redirect logic (`/` → `/notes` or `/login` via server-side cookie check)
+- Fixing ESLint errors (ref-during-render rule)
+- Debugging API error formatting (nested `{ error: { field: [...] } }` shape)
+
+All business logic, design decisions, and final review were done by the developer.

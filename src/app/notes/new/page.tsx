@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import closeButton from "@/assets/close_button.png";
@@ -34,26 +34,19 @@ export default function NewNotePage() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [lastEdited, setLastEdited] = useState(new Date());
 
-  const stateRef = useRef({ title, body, category });
-  useEffect(() => {
-    stateRef.current = { title, body, category };
-  });
-
-  useEffect(() => {
-    return () => {
-      const { title, body, category } = stateRef.current;
-      if (title.trim() || body.trim()) {
-        const token = localStorage.getItem("access_token");
-        if (token) {
-          createNote(token, {
-            title: title.trim() || "Untitled",
-            body,
-            category,
-          });
-        }
+  const handleClose = async () => {
+    if (title.trim() || body.trim()) {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        await createNote(token, {
+          title: title.trim() || "Untitled",
+          body,
+          category,
+        });
       }
-    };
-  }, []);
+    }
+    router.push("/notes");
+  };
 
   const style = CATEGORY_STYLES[category];
   const otherCategories = CATEGORIES.filter((c) => c !== category);
@@ -112,7 +105,7 @@ export default function NewNotePage() {
 
         {/* Close button */}
         <button
-          onClick={() => router.push("/notes")}
+          onClick={handleClose}
           className="bg-transparent border-none cursor-pointer p-0"
         >
           <Image src={closeButton} alt="Close" width={32} height={32} />

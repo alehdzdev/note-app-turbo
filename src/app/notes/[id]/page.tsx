@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import closeButton from "@/assets/close_button.png";
@@ -34,11 +34,6 @@ export default function EditNotePage() {
   const [lastEdited, setLastEdited] = useState(new Date());
   const [loading, setLoading] = useState(true);
 
-  const stateRef = useRef({ title, body, category });
-  useEffect(() => {
-    stateRef.current = { title, body, category };
-  });
-
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (!token) {
@@ -57,16 +52,13 @@ export default function EditNotePage() {
       .finally(() => setLoading(false));
   }, [id, router]);
 
-  // Autosave on unmount
-  useEffect(() => {
-    return () => {
-      const { title, body, category } = stateRef.current;
-      const token = localStorage.getItem("access_token");
-      if (token) {
-        updateNote(token, Number(id), { title, body, category });
-      }
-    };
-  }, [id]);
+  const handleClose = async () => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      await updateNote(token, Number(id), { title, body, category });
+    }
+    router.push("/notes");
+  };
 
   const style = CATEGORY_STYLES[category];
   const otherCategories = CATEGORIES.filter((c) => c !== category);
@@ -122,7 +114,7 @@ export default function EditNotePage() {
         </div>
 
         {/* Close button */}
-        <button onClick={() => router.push("/notes")} className="bg-transparent border-none cursor-pointer p-0">
+        <button onClick={handleClose} className="bg-transparent border-none cursor-pointer p-0">
           <Image src={closeButton} alt="Close" width={32} height={32} />
         </button>
       </div>
